@@ -13,12 +13,26 @@ using UnityEngine.UI;
 [DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
+    public Text text;
     public InputField iField;
 
     private void OnEnable()
     {
-        if (MainManagerII.Instance.PlayerName != null)
+        if (MainManagerII.Instance.PlayerName == null || MainManagerII.Instance.PlayerName == string.Empty)
+            iField.onValueChanged.AddListener(UpdateText);
+        else
+        {
             iField.text = MainManagerII.Instance.PlayerName;
+            text.text = "Best Score : " + MainManagerII.Instance.PlayerName + " : " + MainManagerII.Instance.PlayerScore;
+        }
+    }
+
+    private void UpdateText(string _)
+    {
+        if (MainManagerII.Instance.PlayerScore != "0")
+            text.text = "Best Score : : " + MainManagerII.Instance.PlayerScore;
+        else
+            text.text = "Best Score : : 0";
     }
 
     public void StartNew()

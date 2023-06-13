@@ -40,9 +40,7 @@ public class MainManager : MonoBehaviour
 
     private void OnEnable()
     {
-        var score = MainManagerII.Instance.PlayerScore;
-        var name = MainManagerII.Instance.PlayerName;
-        StoredInfoText.text = "Best Score: " + score + " Name: " + name;
+        UpdateLeText();
     }
 
     private void Update()
@@ -70,6 +68,16 @@ public class MainManager : MonoBehaviour
         }
     }
 
+    private void UpdateLeText()
+    {
+        var score = MainManagerII.Instance.PlayerScore;
+        var name = MainManagerII.Instance.PlayerName;
+        if (name == null || name == string.Empty || score == "0")
+            StoredInfoText.text = "Best Score : : " + score;
+        else
+            StoredInfoText.text = "Best Score : " + name + " : " + score;
+    }
+
     private IEnumerator SkipAFrameBeforeLoadingScene()
     {
         yield return new WaitForFixedUpdate();
@@ -80,6 +88,9 @@ public class MainManager : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         MainManagerII.Instance.SaveInfo();
+
+        yield return new WaitForFixedUpdate();
+        UpdateLeText();
     }
 
     void AddPoint(int point)

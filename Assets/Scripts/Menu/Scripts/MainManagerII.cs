@@ -7,7 +7,7 @@ public class MainManagerII : MonoBehaviour
 {
     public static MainManagerII Instance;
     public string PlayerName = string.Empty;
-    public string PlayerScore = string.Empty;
+    public string PlayerScore = "0";
 
     private void Awake()
     {
